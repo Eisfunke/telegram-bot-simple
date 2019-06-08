@@ -443,10 +443,11 @@ data InlineQuery = InlineQuery
 
 -- | Contains a single result of an inline query.
 data InlineQueryResult = InlineQueryResultArticle
-  { inlineQueryResultArticleType :: Text
-  , inlineQueryResultArticleId :: Text
-  , inlineQueryResultArticleTitle :: Text
-  , inlineQueryResultArticleInputMessageContent :: InputMessageContent
+  { inlineQueryResultType :: Text
+  , inlineQueryResultId :: Text
+  , inlineQueryResultTitle :: Text
+  , inlineQueryResultInputMessageContent :: InputMessageContent
+  , inlineQueryResultDescription :: Text
   -- TODO missing attributes
   } -- TODO missing constructors
    deriving (Show, Generic)
@@ -455,7 +456,7 @@ data InlineQueryResult = InlineQueryResultArticle
 
 -- | Represents the content of a text message to be sent as the result of an inline query.
 data InputMessageContent = InputTextMessageContent
-  { inputTextMessageContentMessageText :: Text
+  { inputMessageContentMessageText :: Text
   -- TODO missing attributes
   } -- TODO missing constructors
   deriving (Show, Generic)
