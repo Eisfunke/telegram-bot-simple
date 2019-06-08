@@ -50,8 +50,16 @@ type SendMessage
 sendMessage :: SendMessageRequest -> ClientM (Response Message)
 sendMessage = client (Proxy @SendMessage)
 
+-- ** 'answerInlineQuery'
+
+type AnswerInlineQuery
+  = "answerInlineQuery" :> ReqBody '[JSON] AnswerInlineQueryRequest :> Post '[JSON] (Response Bool)
+
+answerInlineQuery :: AnswerInlineQueryRequest -> ClientM (Response Bool)
+answerInlineQuery = client (Proxy @AnswerInlineQuery)
+
 -- | Unique identifier for the target chat
--- or username of the target channel (in the format @\@channelusername@).
+-- or username of the target channel (in the format @\@channelusername@).,
 data SomeChatId
   = SomeChatId ChatId       -- ^ Unique chat ID.
   | SomeChatUsername Text   -- ^ Username of the target channel.
@@ -94,3 +102,13 @@ data SendMessageRequest = SendMessageRequest
 
 instance ToJSON   SendMessageRequest where toJSON = gtoJSON
 instance FromJSON SendMessageRequest where parseJSON = gparseJSON
+
+-- | Request parameters for 'answerInlineQuery'.
+data AnswerInlineQueryRequest = AnswerInlineQueryRequest
+  { answerInlineQueryInlineQueryId :: Text
+  , answerInlineQueryResults :: [InlineQueryResult]
+  -- TODO missing parameters
+  } deriving (Generic)
+
+instance ToJSON   AnswerInlineQueryRequest where toJSON = gtoJSON
+instance FromJSON AnswerInlineQueryRequest where parseJSON = gparseJSON

@@ -428,6 +428,38 @@ data ResponseParameters = ResponseParameters
   , responseParametersRetryAfter :: Maybe Seconds -- ^ In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
   } deriving (Show, Generic)
 
+-- ** 'InlineQuery'
+
+-- | Contains information about an incoming inline query.
+data InlineQuery = InlineQuery
+  { inlineQueryId :: Text
+  , inlineQueryFrom :: User
+  , inlineQueryLocation :: Maybe Location
+  , inlineQueryQuery :: Text
+  , inlineQueryOffset :: Text
+  } deriving (Show, Generic)
+
+-- ** 'InlineQueryResult'
+
+-- | Contains a single result of an inline query.
+data InlineQueryResult = InlineQueryResultArticle
+  { inlineQueryResultArticleType :: Text
+  , inlineQueryResultArticleId :: Text
+  , inlineQueryResultArticleTitle :: Text
+  , inlineQueryResultArticleInputMessageContent :: InputMessageContent
+  -- TODO missing attributes
+  } -- TODO missing constructors
+   deriving (Show, Generic)
+
+-- ** 'InputMessageContent'
+
+-- | Represents the content of a text message to be sent as the result of an inline query.
+data InputMessageContent = InputTextMessageContent
+  { inputTextMessageContentMessageText :: Text
+  -- TODO missing attributes
+  } -- TODO missing constructors
+  deriving (Show, Generic)
+
 deriveJSON' ''User
 deriveJSON' ''Chat
 deriveJSON' ''Message
@@ -453,3 +485,6 @@ deriveJSON' ''ForceReply
 deriveJSON' ''ChatPhoto
 deriveJSON' ''ChatMember
 deriveJSON' ''ResponseParameters
+deriveJSON' ''InlineQuery
+deriveJSON' ''InlineQueryResult
+deriveJSON' ''InputMessageContent
