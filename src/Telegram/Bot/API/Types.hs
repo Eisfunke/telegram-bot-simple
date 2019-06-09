@@ -457,8 +457,25 @@ data InlineQueryResult = InlineQueryResultArticle
 -- | Represents the content of a text message to be sent as the result of an inline query.
 data InputMessageContent = InputTextMessageContent
   { inputMessageContentMessageText :: Text
-  -- TODO missing attributes
-  } -- TODO missing constructors
+  , inputMessageContentParseMode :: Maybe Text
+  , inputMessageContentDisableWebPagePreview :: Maybe Bool
+  } | InputLocationMessageContent
+  { inputMessageContentLatitude :: Float
+  , inputMessageContentLongitude :: Float
+  , inputMessageContentLivePeriod :: Maybe Int32
+  } | InputVenueMessageContent
+  { inputMessageContentLatitude :: Float
+  , inputMessageContentLongitude :: Float
+  , inputMessageContentTitle :: Text
+  , inputMessageContentAddress :: Text
+  , inputMessageContentFoursquareId :: Maybe Text
+  , inputMEssageContentFoursquareType :: Maybe Text
+  } | InputContactMessageContent
+  { inputMessageContentPhoneNumber :: Text
+  , inputMessageContentFirstName :: Text
+  , inputMessageContentLastName :: Maybe Text
+  , inputMessageContentVcard :: Maybe Text
+  }
   deriving (Show, Generic)
 
 deriveJSON' ''User
